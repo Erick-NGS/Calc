@@ -3,35 +3,19 @@ let currentResult = defaultResult;
 const logEntries = [];
 
 const add = () => {
-  const userNumber = getUserInput();
-  const initialRes = currentResult;
-  currentResult += userNumber;
-  createLog('+', initialRes, userNumber);
-  writeToLog('ADDITION', initialRes, userNumber, currentResult);
+  calcRes('ADDITION');
 };
 
 const substract = () => {
-  const userNumber = getUserInput();
-  const initialRes = currentResult;
-  currentResult -= userNumber;
-  createLog('-', initialRes, userNumber);
-  writeToLog('SUBSTRACTION', initialRes, userNumber, currentResult);
+  calcRes('SUBSTRACTION');
 };
 
 const multiply = () => {
-  const userNumber = getUserInput();
-  const initialRes = currentResult;
-  currentResult *= userNumber;
-  createLog('*', initialRes, userNumber);
-  writeToLog('MULTIPLICATION', initialRes, userNumber, currentResult);
+  calcRes('MULTIPLICATION');
 };
 
 const divide = () => {
-  const userNumber = getUserInput();
-  const initialRes = currentResult;
-  currentResult /= userNumber;
-  createLog('/', initialRes, userNumber);
-  writeToLog('DIVISION', initialRes, userNumber, currentResult);
+  calcRes('DIVISION');
 };
 
 // AUX FUNCS //
@@ -54,6 +38,29 @@ const writeToLog = (op, prevRes, opNumber, newRes) => {
   };
   logEntries.push(logEntry);
   console.log(logEntries);
+};
+
+const calcRes = calcType => {
+  const userNumber = getUserInput();
+  const initialRes = currentResult;
+  let mathOp;
+
+  if (calcType === 'ADDITION') {
+    currentResult += userNumber;
+    mathOp = '+';
+  } else if (calcType === 'SUBSTRACTION') {
+    currentResult -= userNumber;
+    mathOp = '-';
+  } else if (calcType === 'MULTIPLICATION') {
+    currentResult *= userNumber;
+    mathOp = '*';
+  } else if (calcType === 'DIVISION') {
+    currentResult /= userNumber;
+    mathOp = '/';
+  }
+
+  createLog(mathOp, initialRes, userNumber);
+  writeToLog(calcType, initialRes, userNumber, currentResult);
 };
 
 // AUX FUNCS //

@@ -41,6 +41,15 @@ const writeToLog = (op, prevRes, opNumber, newRes) => {
 };
 
 const calcRes = calcType => {
+  if (
+    calcType !== 'ADDITION' &&
+    calcType !== 'SUBSTRACTION' &&
+    calcType !== 'MULTIPLICATION' &&
+    calcType !== 'DIVISION'
+  ) {
+    return;
+  }
+
   const userNumber = getUserInput();
   const initialRes = currentResult;
   let mathOp;

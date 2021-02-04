@@ -2,21 +2,32 @@ const defaultResult = 0;
 let currentResult = defaultResult;
 const logEntries = [];
 
-const add = () => {
-  calcRes('ADDITION');
+const calculate = op => {
+  const userNumber = getUserInput();
+  const initialRes = currentResult;
+  let mathOp;
+
+  if (op === 'ADD') {
+    currentResult += userNumber;
+    mathOp = '+';
+  } else if (op === 'SUBTRACT') {
+    currentResult -= userNumber;
+    mathOp = '-';
+  } else if (op === 'MULTIPLY') {
+    currentResult *= userNumber;
+    mathOp = '*';
+  } else {
+    currentResult /= userNumber;
+    mathOp = '/';
+  }
+  createLog(mathOp, initialRes, userNumber);
+  writeToLog(op, initialRes, userNumber, currentResult);
 };
 
-const substract = () => {
-  calcRes('SUBSTRACTION');
-};
-
-const multiply = () => {
-  calcRes('MULTIPLICATION');
-};
-
-const divide = () => {
-  calcRes('DIVISION');
-};
+addBtn.addEventListener('click', calculate.bind(this, 'ADD'));
+subtractBtn.addEventListener('click', calculate.bind(this, 'SUBTRACT'));
+multiplyBtn.addEventListener('click', calculate.bind(this, 'MULTIPLY'));
+divideBtn.addEventListener('click', calculate.bind(this, 'DIVIDE'));
 
 // AUX FUNCS //
 
@@ -40,42 +51,4 @@ const writeToLog = (op, prevRes, opNumber, newRes) => {
   console.log(logEntries);
 };
 
-const calcRes = calcType => {
-  const userNumber = getUserInput();
-  const initialRes = currentResult;
-  let mathOp;
-
-  if (
-    (calcType !== 'ADDITION' &&
-      calcType !== 'SUBSTRACTION' &&
-      calcType !== 'MULTIPLICATION' &&
-      calcType !== 'DIVISION') ||
-    !userNumber
-  ) {
-    return;
-  }
-
-  if (calcType === 'ADDITION') {
-    currentResult += userNumber;
-    mathOp = '+';
-  } else if (calcType === 'SUBSTRACTION') {
-    currentResult -= userNumber;
-    mathOp = '-';
-  } else if (calcType === 'MULTIPLICATION') {
-    currentResult *= userNumber;
-    mathOp = '*';
-  } else if (calcType === 'DIVISION') {
-    currentResult /= userNumber;
-    mathOp = '/';
-  }
-
-  createLog(mathOp, initialRes, userNumber);
-  writeToLog(calcType, initialRes, userNumber, currentResult);
-};
-
 // AUX FUNCS //
-
-addBtn.addEventListener('click', add);
-subtractBtn.addEventListener('click', substract);
-multiplyBtn.addEventListener('click', multiply);
-divideBtn.addEventListener('click', divide);
